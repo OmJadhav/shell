@@ -64,12 +64,12 @@ int main(int argc, char *argv[]) {
 
   for (i = 0; i < outer; i++) {
     for (j = 0; j < inner; j++) {
-      printf("%d: %d\n", pid, count);
+      //printf("%d: %d\n", pid, count);
       count++;
     }
 
     usec = max_usleep * ((float)rand() / (float)RAND_MAX);
-    printf("%d sleeping for  %ld usec\n", pid, usec);
+    //printf("%d sleeping for  %ld usec\n", pid, usec);
     if (usleep(usec) == -1) {
       perror("usleep");
     }
