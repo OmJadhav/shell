@@ -1,5 +1,5 @@
 #define CLENGTH 513
-#define MAXJOBS 1000
+#define MAXJOBS 32
 
 typedef struct _shell_job {
   int jid; 

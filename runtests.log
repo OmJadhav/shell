@@ -1,0 +1,58 @@
+starting build
+
+**********************************************************************
+
+Test build
+build project using make
+
+**********************************************************************
+Trying to clean project using make clean
+make clean
+rm -rf mysh 
+Trying to build project using make
+make
+gcc -o mysh -Wall -g mysh.c
+
+
+test build PASSED
+ (build project using make)
+
+starting linttest
+
+**********************************************************************
+
+Test linttest
+Lint test for C programming style
+
+**********************************************************************
+/u/c/s/cs537-1/ta/tests/2a/../../lint/cpplint.py --extensions c,h fflushTest.c
+fflushTest.c:5:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
+fflushTest.c:6:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
+fflushTest.c:7:  Weird number of spaces at line-start.  Are you using a 2-space indent?  [whitespace/indent] [3]
+fflushTest.c:8:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+fflushTest.c:9:  Weird number of spaces at line-start.  Are you using a 2-space indent?  [whitespace/indent] [3]
+fflushTest.c:10:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+fflushTest.c:11:  Weird number of spaces at line-start.  Are you using a 2-space indent?  [whitespace/indent] [3]
+fflushTest.c:12:  Weird number of spaces at line-start.  Are you using a 2-space indent?  [whitespace/indent] [3]
+fflushTest.c:12:  Should have a space between // and comment  [whitespace/comments] [4]
+fflushTest.c:14:  Weird number of spaces at line-start.  Are you using a 2-space indent?  [whitespace/indent] [3]
+fflushTest.c:15:  Weird number of spaces at line-start.  Are you using a 2-space indent?  [whitespace/indent] [3]
+fflushTest.c:16:  Weird number of spaces at line-start.  Are you using a 2-space indent?  [whitespace/indent] [3]
+fflushTest.c:16:  Should have a space between // and comment  [whitespace/comments] [4]
+fflushTest.c:18:  Weird number of spaces at line-start.  Are you using a 2-space indent?  [whitespace/indent] [3]
+fflushTest.c:19:  Weird number of spaces at line-start.  Are you using a 2-space indent?  [whitespace/indent] [3]
+fflushTest.c:20:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+fflushTest.c:21:  Weird number of spaces at line-start.  Are you using a 2-space indent?  [whitespace/indent] [3]
+fflushTest.c:22:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+fflushTest.c:23:  Weird number of spaces at line-start.  Are you using a 2-space indent?  [whitespace/indent] [3]
+Done processing fflushTest.c
+Total errors found: 19
+Failure: /u/c/s/cs537-1/ta/tests/2a/../../lint/cpplint.py returned incorrect status code. Expected 0 got 1
+
+
+test linttest FAILED (0 of 5)
+ (Lint test for C programming style)
+ /u/c/s/cs537-1/ta/tests/2a/../../lint/cpplint.py returned incorrect status code. Expected 0 got 1
+
+Skipped 30 tests.
+To keep testing after failing a test, use flag '-c' or '--continue'
