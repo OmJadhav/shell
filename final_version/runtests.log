@@ -1,0 +1,72 @@
+starting build
+
+**********************************************************************
+
+Test build
+build project using make
+
+**********************************************************************
+Trying to clean project using make clean
+make clean
+rm -rf mysh 
+Trying to build project using make
+make
+gcc -o mysh -Wall -g mysh.c
+
+
+test build PASSED
+ (build project using make)
+
+starting linttest
+
+**********************************************************************
+
+Test linttest
+Lint test for C programming style
+
+**********************************************************************
+/u/c/s/cs537-1/ta/tests/2a/../../lint/cpplint.py --extensions c,h mysh.h
+Done processing mysh.h
+Total errors found: 0
+/u/c/s/cs537-1/ta/tests/2a/../../lint/cpplint.py --extensions c,h mysh.c
+mysh.c:70:  At least two spaces is best between code and comments  [whitespace/comments] [2]
+mysh.c:72:  At least two spaces is best between code and comments  [whitespace/comments] [2]
+mysh.c:80:  Redundant blank line at the end of a code block should be deleted.  [whitespace/blank_line] [3]
+mysh.c:85:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
+mysh.c:96:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
+mysh.c:105:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
+mysh.c:140:  Missing space before ( in while(  [whitespace/parens] [5]
+mysh.c:141:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
+mysh.c:151:  At least two spaces is best between code and comments  [whitespace/comments] [2]
+mysh.c:158:  Missing space after ,  [whitespace/comma] [3]
+mysh.c:161:  Missing space before ( in while(  [whitespace/parens] [5]
+mysh.c:167:  At least two spaces is best between code and comments  [whitespace/comments] [2]
+mysh.c:170:  Missing space before ( in if(  [whitespace/parens] [5]
+mysh.c:171:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
+mysh.c:179:  Extra space before )  [whitespace/parens] [2]
+mysh.c:198:  An else should appear on the same line as the preceding }  [whitespace/newline] [4]
+mysh.c:198:  If an else has a brace on one side, it should have it on both  [readability/braces] [5]
+mysh.c:224:  At least two spaces is best between code and comments  [whitespace/comments] [2]
+mysh.c:237:  Missing space before ( in if(  [whitespace/parens] [5]
+mysh.c:244:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
+mysh.c:246:  Missing space before ( in if(  [whitespace/parens] [5]
+mysh.c:257:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
+mysh.c:275:  Missing space before ( in if(  [whitespace/parens] [5]
+mysh.c:276:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
+mysh.c:281:  Missing space before ( in if(  [whitespace/parens] [5]
+mysh.c:282:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
+mysh.c:292:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
+mysh.c:315:  Redundant blank line at the end of a code block should be deleted.  [whitespace/blank_line] [3]
+mysh.c:317:  Redundant blank line at the end of a code block should be deleted.  [whitespace/blank_line] [3]
+mysh.c:318:  At least two spaces is best between code and comments  [whitespace/comments] [2]
+Done processing mysh.c
+Total errors found: 30
+Failure: /u/c/s/cs537-1/ta/tests/2a/../../lint/cpplint.py returned incorrect status code. Expected 0 got 1
+
+
+test linttest FAILED (0 of 5)
+ (Lint test for C programming style)
+ /u/c/s/cs537-1/ta/tests/2a/../../lint/cpplint.py returned incorrect status code. Expected 0 got 1
+
+Skipped 30 tests.
+To keep testing after failing a test, use flag '-c' or '--continue'

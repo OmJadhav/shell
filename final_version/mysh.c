@@ -23,12 +23,7 @@ append_job_to_str(int index) {
   char temp_str[CLENGTH + 20];
   sprintf(temp_str, "%s %d\n", jobs[index].name, jobs[index].jid);
   strcat(job_details, temp_str);
-  //strcpy(job_details, jobs[index].name);
-  //strcat(job_details, " ");
-  //strcat(job_details, jobs[index].jid);
-  //strcat(job_details, "\n");
-  //write(STDOUT_FILENO, job_details, sizeof(char) * strlen(job_details));
-}
+  }
 
 void
 print_bg_jobs() {
@@ -51,10 +46,10 @@ print_bg_jobs2() {
     // check if it still running
     ret = waitpid(jobs[i].pid, &status, WNOHANG);
     if (ret == 0) {
-      jobs[i].is_terminated = 0; // still running
+      jobs[i].is_terminated = 0;
       append_job_to_str(i);
     } else if (ret > 0) {
-      jobs[i].is_terminated = 1; // terminated
+      jobs[i].is_terminated = 1;
       // swap with old job and end--
       jobs[i] = jobs[end];
       end--;
@@ -144,14 +139,10 @@ main(int argc, char *argv[])
 
   while(1) {
 
-    //printf("parent:  pid: %d\n", (int) getpid());
-    // print promt
-    //  write(STDOUT_FILENO, buffer, sizeof(char) * strlen(t));
     if (batch_mode == 0)
       write(STDOUT_FILENO, promt_buffer, sizeof(char) * strlen(promt_buffer));
 
     // check for input and tokenise it
-    //t = fgets(buffer, 513, stdin)
     if (batch_mode == 0)
       ch_ptr =  fgets(input_buffer, 100000, stdin);
     else
@@ -168,8 +159,6 @@ main(int argc, char *argv[])
       i = 0;
       tokens[i]  = strtok(input_buffer, delimit);
       while(tokens[i]) {
-        //printf("token : ");
-        //puts(tokens[i]);
         if (i != 0)
           strcat(temp_job_name, " ");
         strcat(temp_job_name, tokens[i]);
@@ -188,12 +177,8 @@ main(int argc, char *argv[])
         if (((strcmp(tokens[0], "j") == 0) && (i == 1)) ||
             ((strcmp(tokens[0], "j") == 0) &&
              (strcmp(tokens[i - 1], "&" ) == 0) && (i == 2))) {
-          // print all runnin
-          //printf("print all running jobs here\n");
           clean_up_bg_jobs();
           print_bg_jobs();
-          //printf("\nnow the array\n");
-          //print_jobs_array();
 
         } else if (((strcmp(tokens[0], "myw") == 0) && (i == 2)) ||
             ((strcmp(tokens[0], "myw") == 0) &&
@@ -204,7 +189,6 @@ main(int argc, char *argv[])
           long ret_val;
           long temp_pid;
           ret_val = strtol(tokens[1], NULL, 10);
-          //printf("ret value : %ld\n", ret_val);
           if (ret_val < 1000000) {
             if (hash_jid_pid[ret_val] == -1) {
               sprintf(error_buffer, "invalid jid %s\n", tokens[1]);
@@ -322,9 +306,9 @@ main(int argc, char *argv[])
               jid++;
             }
           } else {
-
-            // fork error
-            printf("error in calling fork()");
+              sprintf(error_buffer, "fork error");
+              write(STDOUT_FILENO, error_buffer,
+                sizeof(char) * strlen(error_buffer));
           }
         }
       }
