@@ -122,7 +122,7 @@ main(int argc, char *argv[]) {
   char error_buffer[100000];
   char msg_buffer[100000];
   char *tokens[CLENGTH];
-  char temp_job_name[CLENGTH];
+  char temp_job_name[100000];
   char delimit[]=" \t\r\n\v\f";
   char *ch_ptr;
   int is_bg = 0;
@@ -162,12 +162,19 @@ main(int argc, char *argv[]) {
     else
       ch_ptr =  fgets(input_buffer, 100000, fp);
     if (ch_ptr == NULL) {
+      if (batch_mode == 1) {
+        fclose(fp);
+      }
       exit(0);
     } else {
       // tokenise the string - remove extra spaces,
       if (batch_mode == 1) {
         write(STDOUT_FILENO, input_buffer, sizeof(char) * strlen(input_buffer));
       }
+      // if input is more than 512 characters
+      /* if (strlen(input_buffer) > 512) {
+        continue;
+      } */
       strcpy(temp_job_name, "");
       i = 0;
       tokens[i]  = strtok(input_buffer, delimit);
@@ -186,6 +193,9 @@ main(int argc, char *argv[]) {
            ((strcmp(tokens[0], "exit") == 0) && (strcmp(tokens[1], "&") == 0) &&
             (tokens[2] == NULL)) ||
             ((strcmp(tokens[0], "exit&") == 0) && (tokens[1] == NULL))) {
+          if (batch_mode == 1) {
+            fclose(fp);
+          }
           exit(0);
         }
 
@@ -274,7 +284,9 @@ main(int argc, char *argv[]) {
                 strcat(err_temp, ": Command not found\n");
                 write(STDERR_FILENO, err_temp,
                     sizeof(char) * strlen(err_temp));
-
+                if (batch_mode == 1) {
+                  fclose(fp);
+                }
                 exit(0);
 
               } else {
@@ -292,9 +304,12 @@ main(int argc, char *argv[]) {
                 char err_temp[] = "";
                 strcpy(err_temp, input_buffer);
                 strcat(err_temp, ": Command not found\n");
-              write(STDERR_FILENO, err_temp,
+                write(STDERR_FILENO, err_temp,
                   sizeof(char) * strlen(err_temp));
-              exit(0);
+                if (batch_mode == 1) {
+                  fclose(fp);
+                }
+                exit(0);
             }
           } else if (rc > 0) {
             // parent

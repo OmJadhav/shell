@@ -1,4 +1,4 @@
-#define CLENGTH 513
+#define CLENGTH 514
 #define MAXJOBS 32
 
 typedef struct _shell_job {
