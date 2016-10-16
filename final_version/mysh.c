@@ -6,7 +6,16 @@
 #include <sys/wait.h>
 #include <ctype.h>
 #include <sys/time.h>
-#include "mysh.h"
+
+#define CLENGTH 514
+#define MAXJOBS 32
+
+typedef struct _shell_job {
+  int jid;
+  int pid;
+  char name[CLENGTH];
+  int is_terminated;
+} shell_job;
 
 // array of job structures
 shell_job jobs[MAXJOBS];
@@ -37,29 +46,6 @@ print_bg_jobs() {
   write(STDOUT_FILENO, job_details, sizeof(char) * strlen(job_details));
 }
 
-void
-print_bg_jobs2() {
-  // loop through the array
-  int i, status, ret;
-  strcpy(job_details, "");
-  for (i = 0; i <= end; i++) {
-    // check if it still running
-    ret = waitpid(jobs[i].pid, &status, WNOHANG);
-    if (ret == 0) {
-      jobs[i].is_terminated = 0;
-      append_job_to_str(i);
-    } else if (ret > 0) {
-      jobs[i].is_terminated = 1;
-      // swap with old job and end--
-      jobs[i] = jobs[end];
-      end--;
-      // check this index again as new job is arrived at this
-      i--;
-    }
-  }
-  // write job_details
-  write(STDOUT_FILENO, job_details, sizeof(char) * strlen(job_details));
-}
 void clean_up_bg_jobs() {
   int i, status, ret;
   for (i = 0; i <= end; i++) {
@@ -79,23 +65,6 @@ void clean_up_bg_jobs() {
     }
   }
 }
-void clean_up_bg_jobs3() {
-  int i, status, ret;
-  for (i = 0; i <= end; i++) {
-    // check if it still running
-    ret = waitpid(jobs[i].pid, &status, WNOHANG);
-    if (ret == 0) {
-      jobs[i].is_terminated = 0;
-    } else if (ret > 0) {
-      jobs[i].is_terminated = 1;
-      // swap with old job and end--
-      jobs[i] = jobs[end];
-      end--;
-      // check this index again as new job is arrived at this
-      i--;
-    }
-  }
-}
 
 void
 print_jobs_array() {
@@ -106,8 +75,7 @@ print_jobs_array() {
   }
 }
 
-
-  void
+void
 usage() {
   char error_buffer[500];
   sprintf(error_buffer, "Usage: mysh [batchFile]\n");
@@ -115,7 +83,7 @@ usage() {
   exit(1);
 }
 
-  int
+int
 main(int argc, char *argv[]) {
   char promt_buffer[] = "mysh> ";
   char input_buffer[100000];
@@ -172,9 +140,11 @@ main(int argc, char *argv[]) {
         write(STDOUT_FILENO, input_buffer, sizeof(char) * strlen(input_buffer));
       }
       // if input is more than 512 characters
-      /* if (strlen(input_buffer) > 512) {
+      // int t_len = strlen(input_buffer);
+      // printf("input buffer len: %d\n", t_len);
+      if (strlen(input_buffer) > 513) {
         continue;
-      } */
+      }
       strcpy(temp_job_name, "");
       i = 0;
       tokens[i]  = strtok(input_buffer, delimit);
